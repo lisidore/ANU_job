@@ -1,0 +1,120 @@
+
+library("microbenchmark")
+library("profvis")
+library("ggplot2")
+library(tidyverse)
+library(readr)
+library(lubridate) #facilitates working with dates. Not needed for NEMo simulation but probably some tests on some ebird data
+library(Rcpp)
+library(devtools)
+library(githubinstall)
+library(RcppArmadillo)
+
+
+
+
+
+
+
+# *********** ignore the block of code below for now *******************************************************************************
+
+test_vec <- c(1:8)
+
+test_sum <- sum(test_vec < 5)
+
+
+
+iii <- 1
+set.seed(iii)
+eventX<-matrix(rnorm(30),nrow=6) #creates a matrix of random real numbers
+
+
+eventX2<-matrix(sample.int(1000,size=100,replace=TRUE),nrow=20,ncol=5) #creates a matrix of random integers
+
+colnames(eventX) <- c("type","N","xmin","col4","col5","col6") #add column names to eventX
+
+dentistroX <- numeric(10)
+
+
+iii <- 1
+set.seed(iii)
+# eventX<-matrix(rnorm(30),nrow=6) #creates a matrix of random real numbers
+eventX<-matrix(sample.int(1000,size=120,replace=TRUE),nrow=20,ncol=6) #creates a matrix of random integers
+eventX
+colnames(eventX) <- c("type","n","xmin","a","b","time") #add column names to eventX
+eventX[3][1]<-1
+eventX
+eventX[1][1]<-1
+eventX
+dendistrtX <- c(-5, 2, 6, 3, 8)
+dendistrtoX <- c(7,2, 4, 1, 8)
+nichedistrtX <- c(8,3, 5, 2, 9)
+backdistrtX <- c(9,4, 6, 3, 10)
+Num1 <- 5
+num_a <- 3
+num_b <- 4
+num_x <- 4
+num_u <- 9
+num_d <- 15
+num_edget <- 11
+
+numr <- nrow(eventX)
+
+if (sum(dendistrtX==dendistrtoX) == 2) {
+  print("yesssss")
+  
+}
+
+lenn <- rep(1,7)
+lenn2<- c(rep(1,7),dendistrtoX)
+lenn3 <- dendistrtX * c(rep(1,7),dendistrtoX)
+
+#*********************************** ignore the block of code above for now
+
+#lenny <- 2e-1
+#lenny2 <- exp(1)
+#test_exp = 2e
+#Isie <- 1e-6
+#Arthur <- 5^2
+
+
+
+node <- c(7,8,3,4,7,7,9,11,5,13,17,3,21,16,15,22,12,10,4,8)
+type <- c(6,7,2,3,6,6,8,10,4,12,16,3,21,15,1,2,12,11,6,7)
+time <- c(6.1,7.3,2.2,3.0,6.4,6.1,8.1,10.2,4.3,12.1,16.3,3.2,21.1,15.5,1.2,2.3,12.7,11.1,6.7,7.8)
+a <- c(6.1,7.3,2.2,3.0,6.4,6.1,8.1,10.2,4.3,12.1,16.3,3.2,21.1,15.5,1.2,2.3,12.7,11.1,6.7,7.8)
+b <- c(6.1,7.3,2.2,3.0,6.4,6.1,8.1,10.2,4.3,12.1,16.3,3.2,21.1,15.5,1.2,2.3,12.7,11.1,6.7,7.8)
+n <- c(6.1,7.3,2.2,3.0,6.4,6.1,8.1,10.2,4.3,12.1,16.3,3.2,21.1,15.5,1.2,2.3,12.7,11.1,6.7,7.8)
+xmin <- c(6,7,2,3,6,6,8,10,4,12,16,3,21,15,1,2,12,11,6,7)
+
+eventX3 <- data.frame(node,type,time,a,b,n,xmin)
+numr <- nrow(eventX3)
+
+
+dendistrtX <- c(-5.1, 2.3, 6.3, 3.1, 8.4)
+dendistrtoX <- c(7.2,2.3, 4.1, 1.9, 8.6)
+nichedistrtX <- c(8.2,3.4, 5.5, 2.2, 9.9)
+backdistrtX <- c(9.8,4.3, 6.4, 3.5, 10.7)
+
+
+num_edget <- 11.3
+num_N <- 5
+num_a <- 3.3
+num_b <- 4.7
+num_x <- 4
+num_u <- 9
+num_d <- 15.4
+num_sd <- 21.7
+
+
+Rcpp::sourceCpp("updX2.cpp")
+updX2(eventX,numr,num_edget,dendistrtX,dendistrtoX,nichedistrtX,backdistrtX,num_a,num_b,num_u,num_x,num_sd,num_N,num_d)
+
+
+
+Rcpp::sourceCpp("updX3.cpp")
+updX3(eventX,numr,num_edget,dendistrtX,dendistrtoX,nichedistrtX,backdistrtX,num_a,num_b,num_u,num_x,num_sd,num_N,num_d)
+
+
+Rcpp::sourceCpp("updX4.cpp")
+updX4(eventX,numr,num_edget,dendistrtX,dendistrtoX,nichedistrtX,backdistrtX,num_a,num_b,num_u,num_x,num_sd,num_N,num_d)
